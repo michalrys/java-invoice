@@ -1,8 +1,6 @@
 package pl.edu.agh.mwo.invoice;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,8 +14,8 @@ public class Invoice {
     }
 
     public void addProduct(Product product, Integer quantity) {
-        if (quantity == 0) {
-            throw new IllegalArgumentException("Amount of product cannot be 0.");
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Amount of product cannot be 0 or less than 0.");
         }
         this.products.put(product, quantity);
     }
