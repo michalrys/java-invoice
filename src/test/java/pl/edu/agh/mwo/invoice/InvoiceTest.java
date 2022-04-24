@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import pl.edu.agh.mwo.invoice.Invoice;
 import pl.edu.agh.mwo.invoice.product.DairyProduct;
 import pl.edu.agh.mwo.invoice.product.OtherProduct;
 import pl.edu.agh.mwo.invoice.product.Product;
@@ -177,7 +176,7 @@ public class InvoiceTest {
         //when
         String summary = emptyInvoice.getSummary();
         //then
-        Assert.assertEquals("Faktura " + number + "\n\nLiczba pozycji: 0", summary);
+        Assert.assertEquals("Faktura " + number + "\nLiczba pozycji: 0", summary);
     }
 
     @Test
