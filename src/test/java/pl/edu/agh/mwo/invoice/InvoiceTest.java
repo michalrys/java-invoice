@@ -161,11 +161,12 @@ public class InvoiceTest {
     @Test
     public void shouldHaveTheLowestNumberEqualsOne() {
         //given
-        int amountOfInvoicesCreatedSoFar = Invoice.amountOfInvoicesCreatedSoFar;
+        Invoice invoice = new Invoice();
+        int numberForFirstInvoice = invoice.getNumber();
         //when
-        int numberForFirstInvoice = new Invoice().getNumber();
+        int amountOfInvoicesCreatedSoFar = invoice.getTotalAmount();
         //then
-        Assert.assertEquals(amountOfInvoicesCreatedSoFar + 1, numberForFirstInvoice);
+        Assert.assertEquals(amountOfInvoicesCreatedSoFar, numberForFirstInvoice);
     }
 
     @Test

@@ -10,16 +10,13 @@ import pl.edu.agh.mwo.invoice.product.Product;
 
 public class Invoice {
     private Map<Product, Integer> products = new HashMap<>();
-    public static int amountOfInvoicesCreatedSoFar = -1;
-    private final int number;
+    private final IdentificationNumber numberStrategy = new IdentificationNumberBySimpleIncrement();
+    private final int number = numberStrategy.generate();
     public static final String SUMMARY_HEAD = "Faktura";
     public static final String SUMMARY_TAIL = "Liczba pozycji:";
 
-    public Invoice() {
-        synchronized (this) {
-            Invoice.amountOfInvoicesCreatedSoFar++;
-            this.number = amountOfInvoicesCreatedSoFar;
-        }
+    public int getTotalAmount() {
+        return numberStrategy.getTotalAmount();
     }
 
     public void addProduct(Product product) {
