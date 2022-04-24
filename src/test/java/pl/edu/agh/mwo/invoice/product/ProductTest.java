@@ -1,6 +1,7 @@
 package pl.edu.agh.mwo.invoice.product;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;
@@ -77,11 +78,30 @@ public class ProductTest {
         BigDecimal excise = new BigDecimal(5.56);
         BigDecimal totalTax = tax.add(excise.divide(price));
         BigDecimal expectedPriceWithTax = price.multiply(totalTax).add(price);
+        LocalDate promotionDate = LocalDate.now().plusDays(12);
 
-        Product product = new FuelCanister("NoPb95", price, tax, excise);
+        Product product = new FuelCanister("Liquid fuel NoPb95", price, tax, excise, promotionDate);
         Assert.assertThat(price, Matchers.comparesEqualTo(product.getPrice()));
         Assert.assertThat(expectedPriceWithTax, Matchers.comparesEqualTo(product.getPriceWithTax()));
         Assert.assertThat(totalTax, Matchers.comparesEqualTo(product.getTaxPercent()));
         Assert.assertThat(excise, Matchers.comparesEqualTo(((FuelCanister) product).getExcise()));
+    }
+
+    @Test
+    public void shouldSetZeroExciseForLiquidFuelPromotionDay() {
+        BigDecimal price = new BigDecimal("100");
+        BigDecimal tax = new BigDecimal(0.20);
+        BigDecimal excise = new BigDecimal(5.56);
+//        LocalDate carpenterDay = LocalDate.of(LocalDate.now().getYear(), 3, 19);
+        LocalDate carpenterDay = LocalDate.now();
+        BigDecimal totalTax = tax;
+        String name = "Liquid fuel NoPb95";
+        BigDecimal expectedPriceWithTax = price.multiply(totalTax).add(price);
+
+        Product product = new FuelCanister(name, price, tax, excise, carpenterDay);
+        Assert.assertThat(price, Matchers.comparesEqualTo(product.getPrice()));
+        Assert.assertThat(expectedPriceWithTax, Matchers.comparesEqualTo(product.getPriceWithTax()));
+        Assert.assertThat(totalTax, Matchers.comparesEqualTo(product.getTaxPercent()));
+        Assert.assertThat(new BigDecimal(0), Matchers.comparesEqualTo(((FuelCanister) product).getExcise()));
     }
 }
