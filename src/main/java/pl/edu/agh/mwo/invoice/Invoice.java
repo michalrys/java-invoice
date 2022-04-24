@@ -9,7 +9,8 @@ import pl.edu.agh.mwo.invoice.product.Product;
 
 public class Invoice {
     private Map<Product, Integer> products = new HashMap<Product, Integer>();
-    private int number = Math.abs(new Random().nextInt());
+    private static int lastNumber = 0;
+    private int number = ++lastNumber;
 
     public void addProduct(Product product) {
         addProduct(product, 1);
