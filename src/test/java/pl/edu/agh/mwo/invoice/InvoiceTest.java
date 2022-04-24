@@ -211,14 +211,53 @@ public class InvoiceTest {
         double priceB = 2.34;
         int amountB = 2;
 
-        invoiceWithSeveralProducts.addProduct(new DairyProduct(productB, BigDecimal.valueOf(priceB)), amountB);
         invoiceWithSeveralProducts.addProduct(new DairyProduct(productA, BigDecimal.valueOf(priceA)), amountA);
+        invoiceWithSeveralProducts.addProduct(new DairyProduct(productB, BigDecimal.valueOf(priceB)), amountB);
         int number = invoiceWithSeveralProducts.getNumber();
 
         int amountOfProducts = amountA + amountB;
         String expectedSummary = String.format("Faktura %d\n\t%s x%d x%.2f PLN\n\t%s x%d x%.2f PLN\nLiczba pozycji: %d",
                 number,
                 productA, amountA, priceA, productB, amountB, priceB,
+                amountOfProducts);
+        //when
+        String summary = invoiceWithSeveralProducts.getSummary();
+
+        //then
+        Assert.assertEquals(expectedSummary, summary);
+    }
+
+    @Test
+    public void shouldGetSummaryWithProductsSortedByTheirNames() {
+        //given
+        Invoice invoiceWithSeveralProducts = new Invoice();
+        String productA = "Banany";
+        double priceA = 12.22;
+        int amountA = 3;
+
+        String productB = "Cebulka";
+        double priceB = 2.34;
+        int amountB = 2;
+
+        String productC = "Alabaster";
+        double priceC = 5.34;
+        int amountC = 2;
+
+        invoiceWithSeveralProducts.addProduct(new DairyProduct(productA, BigDecimal.valueOf(priceA)), amountA);
+        invoiceWithSeveralProducts.addProduct(new DairyProduct(productB, BigDecimal.valueOf(priceB)), amountB);
+        invoiceWithSeveralProducts.addProduct(new DairyProduct(productC, BigDecimal.valueOf(priceC)), amountC);
+        int number = invoiceWithSeveralProducts.getNumber();
+
+        int amountOfProducts = amountA + amountB + amountC;
+        String expectedSummary = String.format("Faktura %d" +
+                        "\n\t%s x%d x%.2f PLN" +
+                        "\n\t%s x%d x%.2f PLN" +
+                        "\n\t%s x%d x%.2f PLN" +
+                        "\nLiczba pozycji: %d",
+                number,
+                productC, amountC, priceC,
+                productA, amountA, priceA,
+                productB, amountB, priceB,
                 amountOfProducts);
         //when
         String summary = invoiceWithSeveralProducts.getSummary();

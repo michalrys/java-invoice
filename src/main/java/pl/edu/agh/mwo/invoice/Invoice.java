@@ -1,8 +1,9 @@
 package pl.edu.agh.mwo.invoice;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
+
 import pl.edu.agh.mwo.invoice.product.Product;
 
 public class Invoice {
@@ -55,7 +56,12 @@ public class Invoice {
         summary.append(SUMMARY_HEAD + " " + number + "\n");
 
         int amountOfProducts = 0;
-        for (Product product : products.keySet()) {
+
+        List<Product> sortedProductsByName = products.keySet().stream()
+                .sorted(Comparator.comparing(Product::getName))
+                .collect(Collectors.toList());
+
+        for (Product product : sortedProductsByName) {
             amountOfProducts += products.get(product);
             summary.append("\t");
             summary.append(product.getName());
