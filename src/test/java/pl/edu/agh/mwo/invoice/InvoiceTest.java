@@ -228,7 +228,7 @@ public class InvoiceTest {
     }
 
     @Test
-    public void shouldIncreaseAmountOfProductAddedTwice() {
+    public void shouldIncreaseAmountOfProductAddedTwiceWithSomeAmount() {
         //given
         DairyProduct milk = new DairyProduct("Milk", BigDecimal.valueOf(2.00));
         Invoice invoice = new Invoice();
