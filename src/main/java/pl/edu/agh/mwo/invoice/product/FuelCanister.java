@@ -8,8 +8,10 @@ public class FuelCanister extends Product {
     private final LocalDate promoDay;
     private BigDecimal excise;
 
-    public FuelCanister(String name, BigDecimal price, BigDecimal tax, BigDecimal excise, LocalDate promoDay) {
-        super(name, price, shallBeWithoutExcise(name) && isPromoDay(promoDay) ? tax : tax.add(excise.divide(price)));
+    public FuelCanister(String name, BigDecimal price,
+                        BigDecimal tax, BigDecimal excise, LocalDate promoDay) {
+        super(name, price, shallBeWithoutExcise(name) && isPromoDay(promoDay)
+                ? tax : tax.add(excise.divide(price)));
         this.tax = tax;
         this.promoDay = promoDay;
 
