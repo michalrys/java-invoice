@@ -199,4 +199,31 @@ public class InvoiceTest {
         //then
         Assert.assertEquals(expectedSummary, summary);
     }
+
+    @Test
+    public void shouldGetSummaryForInvoiceHavingSeveralDifferentProducts() {
+        //given
+        Invoice invoiceWithSeveralProducts = new Invoice();
+        String productA = "Mleczko";
+        double priceA = 12.54;
+        int amountA = 3;
+        String productB = "Ser";
+        double priceB = 2.34;
+        int amountB = 2;
+        invoiceWithSeveralProducts.addProduct(new DairyProduct(productA, BigDecimal.valueOf(priceA)), amountA);
+        invoiceWithSeveralProducts.addProduct(new DairyProduct(productB, BigDecimal.valueOf(priceB)), amountB);
+        int number = invoiceWithSeveralProducts.getNumber();
+        int amountOfProducts = amountA;
+        String expectedSummary = String.format("Faktura %d\n\t%s x%d x%.2f PLN\n\t%s x%d x%.2f PLN\nLiczba pozycji: %d",
+                number,
+                productA, amountA, priceA, productB, amountB, priceB,
+                amountOfProducts);
+
+        //when
+        String summary = invoiceWithSeveralProducts.getSummary();
+
+        //then
+        Assert.assertEquals(expectedSummary, summary);
+
+    }
 }
