@@ -51,6 +51,10 @@ public class Invoice {
     }
 
     public String getSummary() {
+        if (products.isEmpty()) {
+            return "Faktura " + number + "\n\nLiczba pozycji: 0";
+        }
+
         String productName = "";
         double productPrice = 0.0;
         int productAmount = 0;

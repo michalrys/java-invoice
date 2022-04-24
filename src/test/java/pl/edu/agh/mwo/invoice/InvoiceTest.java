@@ -199,5 +199,4 @@ public class InvoiceTest {
         //then
         Assert.assertEquals(expectedSummary, summary);
     }
-
 }
