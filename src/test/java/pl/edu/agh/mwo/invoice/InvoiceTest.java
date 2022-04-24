@@ -138,4 +138,12 @@ public class InvoiceTest {
         int numberForInvoiceB = new Invoice().getNumber();
         Assert.assertNotEquals(numberForInvoiceA, numberForInvoiceB);
     }
+
+    @Test
+    public void shouldHaveConstantNumber() {
+        Assert.assertEquals(invoice.getNumber(), invoice.getNumber());
+        Assert.assertEquals(invoice.getNumber(), invoice.getNumber());
+        Assert.assertEquals(invoice.getNumber(), invoice.getNumber());
+        Assert.assertEquals(invoice.getNumber(), invoice.getNumber());
+    }
 }
