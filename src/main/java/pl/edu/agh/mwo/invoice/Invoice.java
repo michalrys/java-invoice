@@ -1,12 +1,15 @@
 package pl.edu.agh.mwo.invoice;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import pl.edu.agh.mwo.invoice.product.Product;
 
 public class Invoice {
-    private Map<Product, Integer> products = new HashMap<Product, Integer>();
+    private Map<Product, Integer> products = new HashMap<>();
     public static int amountOfInvoicesCreatedSoFar = -1;
     private final int number;
     public static final String SUMMARY_HEAD = "Faktura";
@@ -14,7 +17,8 @@ public class Invoice {
 
     public Invoice() {
         synchronized (this) {
-            this.number = ++Invoice.amountOfInvoicesCreatedSoFar;
+            Invoice.amountOfInvoicesCreatedSoFar++;
+            this.number = amountOfInvoicesCreatedSoFar;
         }
     }
 
