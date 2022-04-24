@@ -46,4 +46,8 @@ public class Invoice {
     public int getNumber() {
         return number;
     }
+
+    public String getSummary() {
+        return String.format("Faktura %d\n\nLiczba pozycji: 0", number);
+    }
 }
