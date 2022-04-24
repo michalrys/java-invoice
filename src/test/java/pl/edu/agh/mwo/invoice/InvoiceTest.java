@@ -168,4 +168,15 @@ public class InvoiceTest {
         //then
         Assert.assertEquals(amountOfInvoicesCreatedSoFar + 1, numberForFirstInvoice);
     }
+
+    @Test
+    public void shouldGetEmptySummaryInvoiceWithoutProducts() {
+        //given
+        Invoice emptyInvoice = new Invoice();
+        int number = emptyInvoice.getNumber();
+        //when
+        String summary = emptyInvoice.getSummary();
+        //then
+        Assert.assertEquals("Faktura " + number + "\n\nLiczba pozycji: 0", summary);
+    }
 }
