@@ -5,6 +5,12 @@ jobs:
     name: linter tests
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
       - name: checkstyle check
         run: mvn checkstyle:check
   test:
