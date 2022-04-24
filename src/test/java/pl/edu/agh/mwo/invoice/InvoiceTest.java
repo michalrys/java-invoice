@@ -180,4 +180,24 @@ public class InvoiceTest {
         Assert.assertEquals("Faktura " + number + "\n\nLiczba pozycji: 0", summary);
     }
 
+    @Test
+    public void shouldGetSummaryForInvoiceHavingSingleProduct() {
+        //given
+        Invoice invoiceWithSingleProduct = new Invoice();
+        String productA = "Mleczko";
+        double priceA = 12.54;
+        int amountA = 1;
+        invoiceWithSingleProduct.addProduct(new DairyProduct(productA, BigDecimal.valueOf(priceA)));
+        int number = invoiceWithSingleProduct.getNumber();
+        int amountOfProducts = amountA;
+        String expectedSummary = String.format("Faktura %d\n\t%s x%d x%.2f PLN\nLiczba pozycji: %d",
+                number, productA, amountA, priceA, amountOfProducts);
+
+        //when
+        String summary = invoiceWithSingleProduct.getSummary();
+
+        //then
+        Assert.assertEquals(expectedSummary, summary);
+    }
+
 }
