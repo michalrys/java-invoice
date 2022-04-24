@@ -11,7 +11,7 @@ jobs:
         with:
           java-version: '8'
           distribution: 'adopt'
-      - name: Here is my Checkstyle check
+      - name: Here is my Checkstyle check`
         run: mvn checkstyle:check
   test:
     name: Unit tests

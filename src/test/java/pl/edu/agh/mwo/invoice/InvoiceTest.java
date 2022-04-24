@@ -125,4 +125,47 @@ public class InvoiceTest {
     public void testAddingNullProduct() {
         invoice.addProduct(null);
     }
+
+    @Test
+    public void shouldHaveNumberGreaterThanZero() {
+        int invoiceNumber = invoice.getNumber();
+        Assert.assertThat(invoiceNumber, Matchers.greaterThan(0));
+    }
+
+    @Test
+    public void shouldHaveDifferentNumberFromAnotherInvoice() {
+        int numberForInvoiceA = new Invoice().getNumber();
+        int numberForInvoiceB = new Invoice().getNumber();
+        Assert.assertNotEquals(numberForInvoiceA, numberForInvoiceB);
+    }
+
+    @Test
+    public void shouldHaveConstantNumber() {
+        Assert.assertEquals(invoice.getNumber(), invoice.getNumber());
+        Assert.assertEquals(invoice.getNumber(), invoice.getNumber());
+        Assert.assertEquals(invoice.getNumber(), invoice.getNumber());
+        Assert.assertEquals(invoice.getNumber(), invoice.getNumber());
+    }
+
+    @Test
+    public void shouldHaveIncrementalNumberBasedOnCreationOrder() {
+        int numberOf1stInvoice = new Invoice().getNumber();
+        int numberOf2ndInvoice = new Invoice().getNumber();
+        int numberOf3rdInvoice = new Invoice().getNumber();
+        int numberOf4thInvoice = new Invoice().getNumber();
+
+        Assert.assertThat(numberOf1stInvoice, Matchers.lessThan(numberOf2ndInvoice));
+        Assert.assertThat(numberOf2ndInvoice, Matchers.lessThan(numberOf3rdInvoice));
+        Assert.assertThat(numberOf3rdInvoice, Matchers.lessThan(numberOf4thInvoice));
+    }
+
+    @Test
+    public void shouldHaveTheLowestNumberEqualsOne() {
+        //given
+        int amountOfInvoicesCreatedSoFar = Invoice.amountOfInvoicesCreatedSoFar;
+        //when
+        int numberForFirstInvoice = new Invoice().getNumber();
+        //then
+        Assert.assertEquals(amountOfInvoicesCreatedSoFar + 1, numberForFirstInvoice);
+    }
 }
