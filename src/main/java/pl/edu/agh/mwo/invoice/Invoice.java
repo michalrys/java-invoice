@@ -9,6 +9,8 @@ public class Invoice {
     private Map<Product, Integer> products = new HashMap<Product, Integer>();
     public static int amountOfInvoicesCreatedSoFar = -1;
     private final int number = ++amountOfInvoicesCreatedSoFar;
+    public static final String SUMMARY_HEAD = "Faktura";
+    public static final String SUMMARY_TAIL = "Liczba pozycji:";
 
     public void addProduct(Product product) {
         addProduct(product, 1);
@@ -45,5 +47,26 @@ public class Invoice {
 
     public int getNumber() {
         return number;
+    }
+
+    public String getSummary() {
+        StringBuilder summary = new StringBuilder();
+        summary.append(SUMMARY_HEAD + " " + number + "\n");
+
+        int amountOfProducts = 0;
+        for (Product product : products.keySet()) {
+            amountOfProducts += products.get(product);
+            summary.append("\t");
+            summary.append(product.getName());
+            summary.append(" x");
+            summary.append(products.get(product));
+            summary.append(" x");
+            summary.append(String.format("%.2f", product.getPrice().doubleValue()));
+            summary.append(" PLN\n");
+        }
+        summary.append(SUMMARY_TAIL);
+        summary.append(" ");
+        summary.append(amountOfProducts);
+        return summary.toString();
     }
 }

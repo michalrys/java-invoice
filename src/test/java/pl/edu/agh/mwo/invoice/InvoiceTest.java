@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import pl.edu.agh.mwo.invoice.Invoice;
 import pl.edu.agh.mwo.invoice.product.DairyProduct;
 import pl.edu.agh.mwo.invoice.product.OtherProduct;
 import pl.edu.agh.mwo.invoice.product.Product;
@@ -167,5 +166,64 @@ public class InvoiceTest {
         int numberForFirstInvoice = new Invoice().getNumber();
         //then
         Assert.assertEquals(amountOfInvoicesCreatedSoFar + 1, numberForFirstInvoice);
+    }
+
+    @Test
+    public void shouldGetEmptySummaryForInvoiceWithoutProducts() {
+        //given
+        Invoice emptyInvoice = new Invoice();
+        int number = emptyInvoice.getNumber();
+        //when
+        String summary = emptyInvoice.getSummary();
+        //then
+        Assert.assertEquals("Faktura " + number + "\nLiczba pozycji: 0", summary);
+    }
+
+    @Test
+    public void shouldGetSummaryForInvoiceHavingSingleProduct() {
+        //given
+        Invoice invoiceWithSingleProduct = new Invoice();
+        String productA = "Mleczko";
+        double priceA = 12.54;
+        int amountA = 1;
+        invoiceWithSingleProduct.addProduct(new DairyProduct(productA, BigDecimal.valueOf(priceA)));
+        int number = invoiceWithSingleProduct.getNumber();
+        int amountOfProducts = amountA;
+        String expectedSummary = String.format("Faktura %d\n\t%s x%d x%.2f PLN\nLiczba pozycji: %d",
+                number, productA, amountA, priceA, amountOfProducts);
+
+        //when
+        String summary = invoiceWithSingleProduct.getSummary();
+
+        //then
+        Assert.assertEquals(expectedSummary, summary);
+    }
+
+    @Test
+    public void shouldGetSummaryForInvoiceHavingSeveralDifferentProducts() {
+        //given
+        Invoice invoiceWithSeveralProducts = new Invoice();
+        String productA = "Mleczko";
+        double priceA = 12.54;
+        int amountA = 3;
+
+        String productB = "Ser";
+        double priceB = 2.34;
+        int amountB = 2;
+
+        invoiceWithSeveralProducts.addProduct(new DairyProduct(productB, BigDecimal.valueOf(priceB)), amountB);
+        invoiceWithSeveralProducts.addProduct(new DairyProduct(productA, BigDecimal.valueOf(priceA)), amountA);
+        int number = invoiceWithSeveralProducts.getNumber();
+
+        int amountOfProducts = amountA + amountB;
+        String expectedSummary = String.format("Faktura %d\n\t%s x%d x%.2f PLN\n\t%s x%d x%.2f PLN\nLiczba pozycji: %d",
+                number,
+                productA, amountA, priceA, productB, amountB, priceB,
+                amountOfProducts);
+        //when
+        String summary = invoiceWithSeveralProducts.getSummary();
+
+        //then
+        Assert.assertEquals(expectedSummary, summary);
     }
 }
