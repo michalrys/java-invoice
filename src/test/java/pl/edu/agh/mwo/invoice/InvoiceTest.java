@@ -235,13 +235,39 @@ public class InvoiceTest {
         invoice.addProduct(milk, 2);
         invoice.addProduct(milk, 3);
 
-        String expected = "Faktura 1\n" +
-                "\tMilk x5 x2,00 PLN\n" +
+        int number = invoice.getNumber();
+
+        String expected = "Faktura " + number +
+                "\n\tMilk x5 x2,00 PLN\n" +
                 "Liczba pozycji: 5";
 
         //when
         String summary = invoice.getSummary();
 
+        //then
+        Assert.assertEquals(expected, summary);
+    }
+
+    @Test
+    public void shouldIncreaseAmountOfProductWhenAddedSeveralTimes() {
+        //given
+        DairyProduct milk = new DairyProduct("Milk", BigDecimal.valueOf(2.00));
+        Invoice invoice = new Invoice();
+        invoice.addProduct(milk);
+        invoice.addProduct(milk);
+        invoice.addProduct(milk);
+        invoice.addProduct(milk);
+        invoice.addProduct(milk);
+        invoice.addProduct(milk);
+
+        int number = invoice.getNumber();
+
+        String expected = "Faktura " + number +
+                "\n\tMilk x6 x2,00 PLN\n" +
+                "Liczba pozycji: 6";
+
+        //when
+        String summary = invoice.getSummary();
 
         //then
         Assert.assertEquals(expected, summary);
