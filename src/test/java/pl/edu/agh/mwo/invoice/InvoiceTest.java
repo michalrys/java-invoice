@@ -127,7 +127,7 @@ public class InvoiceTest {
     }
 
     @Test
-    public void shouldHaveInvoiceNumberGreaterThanZero() {
+    public void shouldHaveNumberGreaterThanZero() {
         int invoiceNumber = invoice.getNumber();
         Assert.assertThat(invoiceNumber, Matchers.greaterThan(0));
     }
