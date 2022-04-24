@@ -20,7 +20,8 @@ public class Invoice {
         if (product == null || quantity <= 0) {
             throw new IllegalArgumentException();
         }
-        products.put(product, quantity);
+        int currentAmount = products.getOrDefault(product, 0);
+        products.put(product, quantity + currentAmount);
     }
 
     public BigDecimal getNetTotal() {
