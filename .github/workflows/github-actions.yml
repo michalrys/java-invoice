@@ -2,7 +2,7 @@ name: CI for Java Invoice
 on: [ push ]
 jobs:
   linter-checks:
-    name: linter tests
+    name: Linter checks using Checkstyle
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -11,7 +11,7 @@ jobs:
         with:
           java-version: '8'
           distribution: 'adopt'
-      - name: checkstyle check
+      - name: Here is my Checkstyle check
         run: mvn checkstyle:check
   test:
     name: Unit tests
