@@ -3,14 +3,13 @@ package pl.edu.agh.mwo.invoice;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import pl.edu.agh.mwo.invoice.product.Product;
 
 public class Invoice {
     private Map<Product, Integer> products = new HashMap<Product, Integer>();
-    private static int lastNumber = 0;
-    private final int number = ++lastNumber;
+    public static int amountOfInvoicesCreatedSoFar = -1;
+    private final int number = ++amountOfInvoicesCreatedSoFar;
 
     public void addProduct(Product product) {
         addProduct(product, 1);
