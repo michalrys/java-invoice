@@ -57,10 +57,16 @@ public class ProductTest {
 
     @Test
     public void shouldIncludeExciseForWineProducts() {
-        Product product = new BottleOfWine("Owocowe", new BigDecimal("100"), new BigDecimal(0.10), new BigDecimal(5.56));
-        Assert.assertThat(new BigDecimal("100"), Matchers.comparesEqualTo(product.getPrice()));
-        Assert.assertThat(new BigDecimal("115.56"), Matchers.comparesEqualTo(product.getPriceWithTax()));
-        Assert.assertThat(new BigDecimal("0.10"), Matchers.comparesEqualTo(product.getTaxPercent()));
-        Assert.assertThat(new BigDecimal("5.56"), Matchers.comparesEqualTo(((BottleOfWine) product).getExcise()));
+        BigDecimal price = new BigDecimal("100");
+        BigDecimal tax = new BigDecimal(0.10);
+        BigDecimal excise = new BigDecimal(5.56);
+        BigDecimal totalTax = tax.add(excise.divide(price));
+        BigDecimal expectedPriceWithTax = price.multiply(totalTax).add(price);
+
+        Product product = new BottleOfWine("Owocowe", price, tax, excise);
+        Assert.assertThat(price, Matchers.comparesEqualTo(product.getPrice()));
+        Assert.assertThat(expectedPriceWithTax, Matchers.comparesEqualTo(product.getPriceWithTax()));
+        Assert.assertThat(totalTax, Matchers.comparesEqualTo(product.getTaxPercent()));
+        Assert.assertThat(excise, Matchers.comparesEqualTo(((BottleOfWine) product).getExcise()));
     }
 }
