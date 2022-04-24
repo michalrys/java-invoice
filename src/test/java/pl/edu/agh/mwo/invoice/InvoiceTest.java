@@ -158,4 +158,11 @@ public class InvoiceTest {
         Assert.assertThat(numberOf2ndInvoice, Matchers.lessThan(numberOf3rdInvoice));
         Assert.assertThat(numberOf3rdInvoice, Matchers.lessThan(numberOf4thInvoice));
     }
+
+    @Test
+    public void shouldHaveTheLowestNumberEqualsOne() {
+        int numberForFirstInvoice = new Invoice().getNumber();
+        Assert.assertEquals(1, numberForFirstInvoice);
+    }
+
 }
