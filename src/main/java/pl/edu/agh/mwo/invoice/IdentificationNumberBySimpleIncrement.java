@@ -5,10 +5,7 @@ public class IdentificationNumberBySimpleIncrement implements IdentificationNumb
 
     @Override
     public int generate() {
-        synchronized (this) {
-            amount++;
-            return amount;
-        }
+        return ++amount;
     }
 
     @Override

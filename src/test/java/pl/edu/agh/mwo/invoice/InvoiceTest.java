@@ -277,8 +277,10 @@ public class InvoiceTest {
 
         int number = invoice.getNumber();
 
+        double expectedPrice = 2.00;
+
         String expected = "Faktura " + number +
-                "\n\tMilk x5 x2,00 PLN\n" +
+                "\n\tMilk x5 x" + String.format("%.2f", expectedPrice) + " PLN\n" +
                 "Liczba pozycji: 5";
 
         //when
@@ -301,9 +303,10 @@ public class InvoiceTest {
         invoice.addProduct(milk);
 
         int number = invoice.getNumber();
+        double expectedPrice = 2.00;
 
         String expected = "Faktura " + number +
-                "\n\tMilk x6 x2,00 PLN\n" +
+                "\n\tMilk x6 x" + String.format("%.2f", expectedPrice) + " PLN\n" +
                 "Liczba pozycji: 6";
 
         //when
