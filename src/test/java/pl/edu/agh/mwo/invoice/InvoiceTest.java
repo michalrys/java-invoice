@@ -131,4 +131,11 @@ public class InvoiceTest {
         int invoiceNumber = invoice.getNumber();
         Assert.assertThat(invoiceNumber, Matchers.greaterThan(0));
     }
+
+    @Test
+    public void shouldHaveDifferentNumberFromAnotherInvoice() {
+        int numberForInvoiceA = new Invoice().getNumber();
+        int numberForInvoiceB = new Invoice().getNumber();
+        Assert.assertNotEquals(numberForInvoiceA, numberForInvoiceB);
+    }
 }
