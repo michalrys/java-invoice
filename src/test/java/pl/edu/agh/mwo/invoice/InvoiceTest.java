@@ -226,4 +226,24 @@ public class InvoiceTest {
         //then
         Assert.assertEquals(expectedSummary, summary);
     }
+
+    @Test
+    public void shouldIncreaseAmountOfProductAddedTwice() {
+        //given
+        DairyProduct milk = new DairyProduct("Milk", BigDecimal.valueOf(2.00));
+        Invoice invoice = new Invoice();
+        invoice.addProduct(milk, 2);
+        invoice.addProduct(milk, 3);
+
+        String expected = "Faktura 1\n" +
+                "\tMilk x5 x2,00 PLN\n" +
+                "Liczba pozycji: 5";
+
+        //when
+        String summary = invoice.getSummary();
+
+
+        //then
+        Assert.assertEquals(expected, summary);
+    }
 }
