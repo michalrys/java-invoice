@@ -3,15 +3,20 @@ package pl.edu.agh.mwo.invoice;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
-
 import pl.edu.agh.mwo.invoice.product.Product;
 
 public class Invoice {
     private Map<Product, Integer> products = new HashMap<Product, Integer>();
     public static int amountOfInvoicesCreatedSoFar = -1;
-    private final int number = ++amountOfInvoicesCreatedSoFar;
+    private final int number;
     public static final String SUMMARY_HEAD = "Faktura";
     public static final String SUMMARY_TAIL = "Liczba pozycji:";
+
+    public Invoice() {
+        synchronized (this) {
+            this.number = ++Invoice.amountOfInvoicesCreatedSoFar;
+        }
+    }
 
     public void addProduct(Product product) {
         addProduct(product, 1);
