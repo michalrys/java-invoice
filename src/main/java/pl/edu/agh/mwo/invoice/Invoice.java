@@ -51,22 +51,23 @@ public class Invoice {
     }
 
     public String getSummary() {
-        if (products.isEmpty()) {
-            return "Faktura " + number + "\n\nLiczba pozycji: 0";
-        }
+        StringBuilder summary = new StringBuilder();
+        summary.append(SUMMARY_HEAD + " " + number + "\n");
 
-        String productName = "";
-        double productPrice = 0.0;
-        int productAmount = 0;
         int amountOfProducts = 0;
         for (Product product : products.keySet()) {
-            productName = product.getName();
-            productPrice = product.getPrice().doubleValue();
-            productAmount = products.get(product);
-            amountOfProducts += productAmount;
+            amountOfProducts += products.get(product);
+            summary.append("\t");
+            summary.append(product.getName());
+            summary.append(" x");
+            summary.append(products.get(product));
+            summary.append(" x");
+            summary.append(String.format("%.2f", product.getPrice().doubleValue()));
+            summary.append(" PLN\n");
         }
-
-        return String.format("%s %d\n\t%s x%d x%.2f PLN\n%s %d",
-                SUMMARY_HEAD, number, productName, productAmount, productPrice, SUMMARY_TAIL, amountOfProducts);
+        summary.append(SUMMARY_TAIL);
+        summary.append(" ");
+        summary.append(amountOfProducts);
+        return summary.toString();
     }
 }

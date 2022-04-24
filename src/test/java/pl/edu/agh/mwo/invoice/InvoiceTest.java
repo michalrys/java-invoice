@@ -210,20 +210,18 @@ public class InvoiceTest {
         String productB = "Ser";
         double priceB = 2.34;
         int amountB = 2;
-        invoiceWithSeveralProducts.addProduct(new DairyProduct(productA, BigDecimal.valueOf(priceA)), amountA);
         invoiceWithSeveralProducts.addProduct(new DairyProduct(productB, BigDecimal.valueOf(priceB)), amountB);
+        invoiceWithSeveralProducts.addProduct(new DairyProduct(productA, BigDecimal.valueOf(priceA)), amountA);
         int number = invoiceWithSeveralProducts.getNumber();
-        int amountOfProducts = amountA;
+        int amountOfProducts = amountA + amountB;
         String expectedSummary = String.format("Faktura %d\n\t%s x%d x%.2f PLN\n\t%s x%d x%.2f PLN\nLiczba pozycji: %d",
                 number,
                 productA, amountA, priceA, productB, amountB, priceB,
                 amountOfProducts);
-
         //when
         String summary = invoiceWithSeveralProducts.getSummary();
 
         //then
         Assert.assertEquals(expectedSummary, summary);
-
     }
 }
