@@ -82,6 +82,6 @@ public class ProductTest {
         Assert.assertThat(price, Matchers.comparesEqualTo(product.getPrice()));
         Assert.assertThat(expectedPriceWithTax, Matchers.comparesEqualTo(product.getPriceWithTax()));
         Assert.assertThat(totalTax, Matchers.comparesEqualTo(product.getTaxPercent()));
-        Assert.assertThat(excise, Matchers.comparesEqualTo(((BottleOfWine) product).getExcise()));
+        Assert.assertThat(excise, Matchers.comparesEqualTo(((FuelCanister) product).getExcise()));
     }
 }
