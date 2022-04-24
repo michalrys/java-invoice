@@ -146,4 +146,16 @@ public class InvoiceTest {
         Assert.assertEquals(invoice.getNumber(), invoice.getNumber());
         Assert.assertEquals(invoice.getNumber(), invoice.getNumber());
     }
+
+    @Test
+    public void shouldHaveIncrementalNumberBasedOnCreationOrder() {
+        int numberOf1stInvoice = new Invoice().getNumber();
+        int numberOf2ndInvoice = new Invoice().getNumber();
+        int numberOf3rdInvoice = new Invoice().getNumber();
+        int numberOf4thInvoice = new Invoice().getNumber();
+
+        Assert.assertThat(numberOf1stInvoice, Matchers.lessThan(numberOf2ndInvoice));
+        Assert.assertThat(numberOf2ndInvoice, Matchers.lessThan(numberOf3rdInvoice));
+        Assert.assertThat(numberOf3rdInvoice, Matchers.lessThan(numberOf4thInvoice));
+    }
 }
