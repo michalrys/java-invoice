@@ -170,7 +170,7 @@ public class InvoiceTest {
     }
 
     @Test
-    public void shouldGetEmptySummaryInvoiceWithoutProducts() {
+    public void shouldGetEmptySummaryForInvoiceWithoutProducts() {
         //given
         Invoice emptyInvoice = new Invoice();
         int number = emptyInvoice.getNumber();
@@ -179,4 +179,5 @@ public class InvoiceTest {
         //then
         Assert.assertEquals("Faktura " + number + "\n\nLiczba pozycji: 0", summary);
     }
+
 }
