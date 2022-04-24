@@ -2,8 +2,11 @@ name: CI for Java Invoice
 on: [ push ]
 jobs:
   linter-checks:
-    - name: checkstyle check
-      run: mvn checkstyle:check
+    name: linter tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkstyle check
+        run: mvn checkstyle:check
   test:
     name: Unit tests
     runs-on: ubuntu-latest
