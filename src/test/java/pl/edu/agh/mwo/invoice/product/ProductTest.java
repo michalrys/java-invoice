@@ -54,4 +54,34 @@ public class ProductTest {
     public void testProductWithNegativePrice() {
         new TaxFreeProduct("Mandarynki", new BigDecimal("-1.00"));
     }
+
+    @Test
+    public void shouldIncludeExciseForWineProducts() {
+        BigDecimal price = new BigDecimal("100");
+        BigDecimal tax = new BigDecimal(0.10);
+        BigDecimal excise = new BigDecimal(5.56);
+        BigDecimal totalTax = tax.add(excise.divide(price));
+        BigDecimal expectedPriceWithTax = price.multiply(totalTax).add(price);
+
+        Product product = new BottleOfWine("Owocowe", price, tax, excise);
+        Assert.assertThat(price, Matchers.comparesEqualTo(product.getPrice()));
+        Assert.assertThat(expectedPriceWithTax, Matchers.comparesEqualTo(product.getPriceWithTax()));
+        Assert.assertThat(totalTax, Matchers.comparesEqualTo(product.getTaxPercent()));
+        Assert.assertThat(excise, Matchers.comparesEqualTo(((BottleOfWine) product).getExcise()));
+    }
+
+    @Test
+    public void shouldIncludeExciseForFuelCanister() {
+        BigDecimal price = new BigDecimal("100");
+        BigDecimal tax = new BigDecimal(0.20);
+        BigDecimal excise = new BigDecimal(5.56);
+        BigDecimal totalTax = tax.add(excise.divide(price));
+        BigDecimal expectedPriceWithTax = price.multiply(totalTax).add(price);
+
+        Product product = new FuelCanister("NoPb95", price, tax, excise);
+        Assert.assertThat(price, Matchers.comparesEqualTo(product.getPrice()));
+        Assert.assertThat(expectedPriceWithTax, Matchers.comparesEqualTo(product.getPriceWithTax()));
+        Assert.assertThat(totalTax, Matchers.comparesEqualTo(product.getTaxPercent()));
+        Assert.assertThat(excise, Matchers.comparesEqualTo(((FuelCanister) product).getExcise()));
+    }
 }
